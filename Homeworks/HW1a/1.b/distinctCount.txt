@@ -1,0 +1,6 @@
+val nums = sc.textFile("/user/ntg251/largeint.txt");
+val pairs = nums.map(s => (s, 1));
+val set = pairs.reduceByKey((a, b) => 1);
+val distinct = set.map(s => (1, 1));
+val distinctCount = distinct.reduceByKey((a, b) => a + b);
+distinctCount.collect().foreach(println);

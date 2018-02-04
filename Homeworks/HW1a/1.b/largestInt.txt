@@ -1,0 +1,4 @@
+val nums = sc.textFile("/user/ntg251/largeint.txt");
+val pairs = nums.map(a => (1, a.toInt));
+val max = pairs.reduceByKey((a,b) => { if(a > b) a else b });
+print(max.first());

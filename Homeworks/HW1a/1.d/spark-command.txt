@@ -1,0 +1,9 @@
+//Matrix and Vector files must be split with matrix being split vertically and vector being split horizontally
+
+spark-submit matrix.py /user/ntg251/MatrixStripe/matrix.txtaa /user/ntg251/MatrixStripe/matrix.txtab /user/ntg251/MatrixStripe/matrix.txtac /user/ntg251/MatrixStripe/matrix.txtad /user/ntg251/MatrixStripe/matrix.txtae /user/ntg251/MatrixStripe/vector.txtaa /user/ntg251/MatrixStripe/vector.txtab /user/ntg251/MatrixStripe/vector.txtac /user/ntg251/MatrixStripe/vector.txtad /user/ntg251/MatrixStripe/vector.txtae /user/ntg251/Output/stripes
+hadoop fs -getmerge /user/ntg251/Output/stripes $HOME/homework1/1d/output.txt
+
+spark-submit matrix.py /user/ntg251/MatrixStripeLarge/matrix0.txt /user/ntg251/MatrixStripeLarge/matrix1.txt /user/ntg251/MatrixStripeLarge/matrix2.txt /user/ntg251/MatrixStripeLarge/matrix3.txt /user/ntg251/MatrixStripeLarge/matrix4.txt /user/ntg251/MatrixStripeLarge/vector0.txt /user/ntg251/MatrixStripeLarge/vector1.txt /user/ntg251/MatrixStripeLarge/vector2.txt /user/ntg251/MatrixStripeLarge/vector3.txt /user/ntg251/MatrixStripeLarge/vector4.txt /user/ntg251/Output/stripeslarge
+hadoop fs -getmerge /user/ntg251/Output/stripeslarge $HOME/homework1/1d/output.txt
+
+spark-submit matrixsmall.py /user/ntg251/MatrixStripeSmall/smallm.txtaa /user/ntg251/MatrixStripeSmall/smallm.txtab /user/ntg251/MatrixStripeSmall/smallm.txtac /user/ntg251/MatrixStripeSmall/smallv.txtaa /user/ntg251/MatrixStripeSmall/smallv.txtab /user/ntg251/MatrixStripeSmall/smallv.txtac /user/ntg251/Output/stripessmall

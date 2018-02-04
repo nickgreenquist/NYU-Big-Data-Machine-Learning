@@ -1,0 +1,3 @@
+val file = sc.textFile("/user/ntg251/Books");
+val counts = file.flatMap(file => file.split(" ")).map(word => (word, 1)).reduceByKey(_ + _);
+counts.collect().foreach(println);

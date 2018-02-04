@@ -1,0 +1,3 @@
+//Matrix folder must contain both matrix.txt and vector.txt
+
+spark-submit matrix.py /user/ntg251/Matrix /user/ntg251/Output/matrix

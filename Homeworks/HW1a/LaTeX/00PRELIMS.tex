@@ -1,0 +1,271 @@
+%pdflatex can imports pdf files and eps files with the \includegraphics command.  PDFs need (last time I checked) the source file whatever.pdf to be called as whatever.eps in the LaTeX file. It will then use the whatever.eps file if it exists and its creation date is more recent than whatever.pdf. If the .eps file is older or missing, it uses whatever.pdf. If it uses the .eps file, it also replaces the .pdf file with this newer image.
+%Note that there is also \resizebox{<width>}{<height>}{<content>} which allows you to scale the image to a given size. This can be more useful for adjusting bigger graphics or pictures: \resizebox{\textwidth}{!}{<content>} scales the content directly to the size of the main text. The ! for the height states that it should scale with the width. See my answer to Quickest way to include graphics for more explanation about scale vs. direct width/height.
+
+%See the graphics/x manual for the other commands like \rotatebox. Note that if you want to resize images you can use the optional arguments of \includegraphics[height=<height>,width=<width>,angle=<angle>,keepaspectratio]{<filename>}.
+%usepackage microsize????????????????????
+% >>>>>>>>>>>>>>>>>>>>>>   see line 214 for black and white vs black red and white <<<<<<<<<<<<<<<<<<<<<<<<<<< B^W conversion: next line
+% gs -sOutputFile=000friver.pdf -sDEVICE=pdfwrite -sColorConversionStrategy=Gray -dProcessColorModel=/DeviceGray  -dCompatibilityLevel=1.4 00friver.pdf
+%betterway: use adobepro select printproduction preflight click on covert to greyscale then analyze and fix button may need to go to View tab & Tools
+%% and type Q no needs return %% COMPLETE with quit Turns color to stipple.
+\RequirePackage{fix-cm}
+%\documentclass[12pt, makeidx]{book} \usepackage[dvips]{graphics} \usepackage{graphicx} \usepackage{epsfig}
+\documentclass[pdftex,12pt, makeidx]{book} \usepackage[dvips]{graphics} \usepackage{graphicx} \usepackage{epsfig}
+%%%\documentclass[12pt,draft, makeidx]{book} \usepackage[dvips]{graphics} \usepackage[final]{graphicx} \usepackage{epsfig}
+%%%\\documentclass[12pt,draft, makeidx]{book} \usepackage[dvips,draft]{graphics} \usepackage[draft]{graphicx} \usepackage[draft]{epsfig}
+%USE COMMENT BELOW INSTEAD
+\usepackage[dvips]{color}
+\usepackage[T1]{fontenc} 
+%\usepackage{ae,aecompl} 
+%\usepackage[varg]{txfonts}
+%\usepackage[px]{sfmath}
+%\usepackage{pxfonts} %flaky math bold and others
+\usepackage[light,condensed]{iwona} %
+%\usepackage[utopia]{mathdesign}  %nice   are??? are sans??
+%\usepackage{cmbright}  
+%\usepackage{mathtime}
+%\usepackage{mathptmx}
+%\usepackage{mbtimes}
+%\usepackage[charter]{mathdesign} %more readable?
+%\usepackage[garamond]{mathdesign}
+%\usepackage{fourier}
+%\usepackage{pxfonts} 
+%\usepackage{pxfonts} 
+%\usepackage{times}  
+\usepackage{graphicx}
+\usepackage{stackrel}
+\usepackage{truncate}
+%\usepackage{extarrows}
+\usepackage{amsmath,amssymb}
+\usepackage{stmaryrd}
+\usepackage[hang,small,bf,textfont=it]{caption}
+\usepackage[hang]{subfigure}
+\usepackage[all]{xy}
+%\usepackage{url}
+\usepackage{calc}
+\usepackage{float}
+%\usepackage[lineno5]{lgrind}
+%\usepackage{alltt}
+\usepackage[normalem]{ulem}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{soul}
+\usepackage{rotating}
+\usepackage{anyfontsize}
+\usepackage{sidecap}
+\usepackage{latexsym}
+%\usepackage{CJKutf8} %<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<CHINESE
+%\AtBeginDvi{\input{zhwinfonts}}
+\usepackage[scr=boondoxo,scrscaled=1.05]{mathalfa}
+\usepackage{epstopdf}
+
+\usepackage{listings}
+
+\graphicspath{ {images/} }
+
+\def\ZOOOO{\begin{exercise}}
+\def\OOOOZ{\end{exercise}}
+\definecolor{XXX}{rgb}{0,0,0}
+
+\def\whereis{??}
+\def\CH{}
+\def\SECT{}
+\usepackage{fancyhdr}
+\def\mathbf#1{\boldsymbol{#1}}        %new def March25 2012.
+\pagestyle{fancy}
+\fancyhf{}
+%\lhead{\footnotesize \parbox{\hsize}{Custom left-head-note} }
+%\lhead{\footnotesize \parbox{11cm}{\thechapter~\CH}}
+%\lfoot{\footnotesize \parbox{11cm}{\whereis}}
+%\rfoot{\tiny \parbox{11cm}{{$\whereis$}}}
+\setlength{\headheight}{14.5pt}
+\setlength{\parindent}{1.6em}
+%\renewcommand\footrulewidth{0.4pt}
+\renewcommand\headwidth{\HHSIZE} 
+\setlength{\headsep}{12pt}
+\setlength{\voffset}{-.5in}
+\setlength{\footskip}{0in}
+\renewcommand{\topfraction}{0.99}	% max fraction of floats at top
+    \renewcommand{\bottomfraction}{0.99}	% max fraction of floats at bottom
+    %   Parameters for TEXT pages (not float pages):
+    \setcounter{topnumber}{2}
+    \setcounter{bottomnumber}{2}
+    \setcounter{totalnumber}{4}     % 2 may work better
+    %\setcounter{dbltopnumber}{2}    % for 2-column pages
+    %\renewcommand{\dbltopfraction}{0.9}	% fit big float above 2-col. text
+    \renewcommand{\textfraction}{0.00}	% allow minimal text w. figs
+    %   Parameters for FLOAT pages (not text pages):
+    \renewcommand{\floatpagefraction}{0.95}	% require fuller float pages
+	% N.B.: floatpagefraction MUST be less than topfraction !!
+    \renewcommand{\dblfloatpagefraction}{0.9}	% require fuller float pages
+
+\definecolor{White}{rgb}{.0,.0,.0}
+
+\def\caja{\mathsurround=0pt}
+\def\eqalign#1{\,\vcenter{\openup1\jot \caja
+        \ialign{\strut \hfil$\displaystyle{##}$&$
+        \displaystyle{{}##}$\hfil\crcr#1\crcr}}\,}
+
+
+\renewcommand{\baselinestretch}{.95}
+
+%copied from web edited to remove errors puts to much space before the = sign  but runs
+\newskip\humongous \humongous=0pt plus 1000pt minus 1000pt
+        \ialign{\strut \hfil$\displaystyle{#}$&$
+        \displaystyle{{}#}$\hfil\crcr\crcr}
+\newif\ifdtup
+\def\panorama{\global\dtuptrue \openup1\jot \caja
+        \everycr{\noalign{\ifdtup \global\dtupfalse
+        \vskip-\lineskiplimit \vskip\normallineskiplimit
+        \else \penalty\interdisplaylinepenalty \fi}}}
+\def\eqalignno#1{\panorama \tabskip=\humongous 
+        \halign to\displaywidth{\hfil$\displaystyle{##}$
+        \tabskip=0pt&$\displaystyle{{}##}$\hfil 
+        \tabskip=\humongous&\llap{$##$}\tabskip=0pt
+        \crcr#1\crcr}}
+
+
+\usepackage{makeidx}
+
+\setlength{\captionmargin}{20pt}
+\textwidth = 42.0pc
+\textheight = 56.pc      %% CHECKTHIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+\oddsidemargin = 0pc
+%\evensidemargin = -3pc Done on line 205  For printed book
+%\topmargin = -1.1pc
+%\topmargin = 5.0pc
+\topmargin = -0.3pc
+
+\hbadness = 10000
+\tolerance = 1000
+\vbadness = 10000
+
+\input{epsf}
+
+\newlength{\contindent}
+\newlength{\HHSIZE}
+\newlength{\hHSIZE}
+\newlength{\vZQOo}
+\newlength{\vZQOe}
+\newlength{\vZQOp}
+\newlength{\ZQOo}
+\newlength{\ZQOe}
+\newlength{\ZQOp}
+\def\contentsname{\vspace*{-.95in}Contents\vspace*{-.6in}}
+
+\let\tcolor\color
+\def\color#1{}
+\let\tcolorbox\colorbox
+%\def\colorbox#1{}
+
+\def\SHOWfigs#1{\smash{\raise -1.8ex\hbox to0in{\hspace{-3in}#1}}}
+\let\eeepsfig\epsfig
+\def\epsfig#1{\eeepsfig{#1}\SHOWfigs{#1}} 
+\message{COMMENTComment to show fig file names, and then RUN silently}
+\message{Comment to show fig file names, and run silently}
+\message{Comment to show fig file names, and run silently}
+\def\SHOWfigs#1{} %<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+\message{Comment to show fig file names, and run silently}
+\message{Comment to show fig file names, and run silently}
+\message{Comment to show fig file names, and run silently}
+
+\let\eepsfig\epsfig
+\def\XXXXX{}
+
+\def\epsfbox#1{\epsfig{file={#1}}}
+%		UNCOMMENT V to print figs and codes only. UNComment here
+%\def\XXXXX{\newpage}\tcolor{white}\let\tcaption\caption\def\caption#1{\tcaption{\textcolor{black}{#1}}}
+%		UNCOMMENT ^ to print figs and codes only.
+%to print figs and progs only with all else white 
+
+
+\message{UNCOMMENT THIS FOR SCROLLING    |  }
+\message{UNCOMMENT THIS FOR SCROLLING    |  }
+\message{UNCOMMENT THIS FOR SCROLLING    |  }
+\message{UNCOMMENT THIS FOR SCROLLING    |  }
+\message{UNCOMMENT THIS FOR SCROLLING    |  }
+\message{UNCOMMENT THIS FOR SCROLLING    |  }
+\message{UNCOMMENT THIS FOR SCROLLING  \ | /}
+\message{UNCOMMENT THIS FOR SCROLLING   \|/ }
+\message{UNCOMMENT THIS FOR SCROLLING    V  }    %for scrolling  UNCOMMENT  FOR
+%%%%%%%%%%%%%%%%%%%%%%%%%                                   SCROLLING works as pdf NOT as ps
+%\special{papersize=8.5in,9.1in} \evensidemargin=0pc \setlength{\paperheight}{9.1in}\topmargin= -1.45in
+\message{UNCOMMENT THIS FOR SCROLLING    |  }    %for scrolling  UNCOMMENT  UNComment
+\message{UNCOMMENT THIS FOR SCROLLING   /|\ }
+\message{UNCOMMENT THIS FOR SCROLLING  / | \ }
+\message{UNCOMMENT THIS FOR SCROLLING    |  }
+
+
+\def\epsfig#1{\colorbox{yellow}{\eepsfig{#1}}}\let\color\tcolor\let\colorbox\tcolorbox  %leave for shading in B&W Instead, change red to black below
+%		  UNCOMMENT FOR no red text       |
+%		  UNCOMMENT FOR no red text       |
+%		  UNCOMMENT FOR no red text.      |
+%		  UNCOMMENT FOR no red text.   \  |  /
+%		  UNCOMMENT FOR no red text.    \ | /
+\evensidemargin = -0pc     %                     \|/
+%\definecolor{red}{rgb}{0,0,0} \evensidemargin = -3pc %%%%%%%%%%%%%%%% uncomment to change red code to color to black 
+%%%Unix command below turns color pdf to B&W but red is a little light. So use ^^ to turn red type to black
+% gs -sOutputFile=000friver.pdf -sDEVICE=pdfwrite -sColorConversionStrategy=Gray -dProcessColorModel=/DeviceGray  -dCompatibilityLevel=1.4 00friver.pdf
+%AcrobatPro has a better option: the mulitcolor button in acrobat pro
+\message{UNCOMMENT THIS FOR no red           |   }         %% and type Q no needs return %% COMPLETE with quit
+\message{UNCOMMENT THIS FOR no red          /|\  }
+\message{UNCOMMENT THIS FOR no red         / | \ }
+\message{UnCOMMENT THIS FOR no red           |   }
+\message{UnCOMMENT THIS FOR no red           |   }
+\message{UnCOMMENT THIS FOR no red           |   }
+\message{UnCOMMENT THIS FOR no red           |   }
+
+\makeatletter
+\renewcommand{\@pnumwidth}{2.0em}% default is 1.55em  for page #s in TOC
+\makeatother
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+\newlength{\templength}
+\newlength{\templengthp}
+
+\let\em\it
+\let\sl\it
+\def\emph#1{\textit{#1}\/}
+\def\wavearrow{\rightarrow}
+\input{zrogram}
+
+\def\ProbD#1{\par\hangindent=\templengthp\hangafter=1\noindent\hbox to \templength{\underline{Definition}}:~The {\bf #1} problem.}
+\def\Question{\par\vspace{-1ex}\par\hangindent=\templengthp\hangafter=1\noindent\hbox to\templength{\hfil\underline{Question}}:~}
+\def\Instance{\par\vspace{-1ex}\par\hangindent=\templengthp\hangafter=1\noindent\hbox to\templength{\hfil\underline{Instance}}:~}
+
+%\fboxsep=.12in
+\setlength{\fboxsep}{4pt}
+\setlength{\fboxrule}{.7pt}
+
+\def\ffbox#1{\setlength{\fboxsep}{1pt}\fbox{#1}\setlength{\fboxsep}{4pt}}
+
+\stepcounter{tocdepth}
+\setcounter{tocdepth}{6}
+\def\xPage{\XXXXX}
+\makeindex
+\let\hubtubsection\subsubsection
+\newcommand{\hiddensubsubsection}[1]{
+\stepcounter{subsubsection}
+\hubtubsection*{{#1}}}
+\let\subsubsection\hiddensubsubsection
+\let\hubagraph\paragraph
+\newcommand{\whatsisparagraph}[1]{\hubagraph*{{#1}}}
+\let\paragraph\whatsisparagraph
+\let\tubtubsection\hubagraph
+\newlength{\stubyl}
+\newlength{\tubyl}
+\newlength{\tubtubyl}
+\def\scrubsection#1#2{\setlength{\tubyl}{\widthof{#1}}\addtolength{\tubyl}{1ex}\setlength{\tubtubyl}{\widthof{#2}}%
+\setlength{\stubyl}{\tubyl}\addtolength{\stubyl}{\tubtubyl}\addtolength{\stubyl}{1.1em}%
+\tubtubsection{\hspace{\tubyl}#2}\hspace{-\stubyl}#1}
+
+
+
+\fancypagestyle{fancy}
+{
+\fancyhead{}
+\fancyfoot{}
+}
+\pagenumbering{arabic}
+\fancyhead[OL]{\hbox{\hspace{3.5in}\thepage}}  %the shift is a quick and dirty fix
+\fancyhead[EL]{\hbox{\hspace{-3.5in}\thepage}} %quick and dirty fix
+\begin{document}
